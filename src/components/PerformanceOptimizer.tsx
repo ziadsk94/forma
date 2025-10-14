@@ -60,6 +60,7 @@ export default function PerformanceOptimizer() {
       // Track First Input Delay
       new PerformanceObserver((entryList) => {
         for (const entry of entryList.getEntries()) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           console.log('FID:', (entry as any).processingStart - entry.startTime);
         }
       }).observe({ entryTypes: ['first-input'] });
