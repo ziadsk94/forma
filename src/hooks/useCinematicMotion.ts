@@ -108,7 +108,7 @@ export const useAdaptiveMotion = () => {
 // Scroll-jack segments for editorial emphasis (limited to 1.5s max)
 export const useScrollJack = (duration: number = 1500) => {
   const isScrolling = useRef(false);
-  const scrollTimeout = useRef<NodeJS.Timeout>();
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
   
   // Ensure duration doesn't exceed 1.5s max for editorial emphasis
   const maxDuration = Math.min(duration, 1500);
