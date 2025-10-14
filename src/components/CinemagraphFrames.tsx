@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 interface CinemagraphProject {
   id: string;
@@ -65,51 +64,19 @@ const projects: CinemagraphProject[] = [
 ];
 
 export default function CinemagraphFrames() {
-  const [isDragging, setIsDragging] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isScrolling, setIsScrolling] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 300, damping: 30 });
-
-  const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number } }) => {
-    if (containerRef.current) {
-      const containerWidth = containerRef.current.scrollWidth;
-      const clientWidth = containerRef.current.clientWidth;
-      const maxScroll = containerWidth - clientWidth;
-      
-      x.set(Math.max(0, Math.min(maxScroll, -info.offset.x)));
-    }
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe || isRightSwipe) {
-      setIsDragging(true);
-      // Let the drag animation handle the movement
-      setTimeout(() => setIsDragging(false), 300);
-    }
-  };
 
   const handleProjectClick = (slug: string) => {
-    if (!isDragging) {
+    if (!isScrolling) {
       window.location.href = slug;
     }
+  };
+
+  const handleScroll = () => {
+    setIsScrolling(true);
+    setTimeout(() => setIsScrolling(false), 150);
   };
 
   return (
@@ -129,37 +96,23 @@ export default function CinemagraphFrames() {
         
         <div 
           ref={containerRef}
-          className="flex gap-8 overflow-x-auto scrollbar-hide pb-8 touch-pan-x"
+          className="flex gap-8 overflow-x-auto scrollbar-hide pb-8"
           style={{ 
             scrollbarWidth: 'none', 
             msOverflowStyle: 'none',
             WebkitOverflowScrolling: 'touch',
             touchAction: 'pan-x'
           }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
+          onScroll={handleScroll}
         >
-          <motion.div
-            className="flex gap-8"
-            style={{ x: springX }}
-            drag="x"
-            dragConstraints={{ left: -2000, right: 0 }}
-            dragElastic={0.1}
-            dragMomentum={false}
-            onDrag={handleDrag}
-            onDragStart={() => setIsDragging(true)}
-            onDragEnd={() => setIsDragging(false)}
-          >
+          <div className="flex gap-8">
             {projects.map((project) => (
-              <motion.div
+              <div
                 key={project.id}
-                className="flex-shrink-0 relative group cursor-pointer w-[85vw] md:w-[70vw] min-w-[300px]"
-                onClick={() => !isDragging && handleProjectClick(project.slug)}
-                onHoverStart={() => setHoveredProject(project.id)}
-                onHoverEnd={() => setHoveredProject(null)}
-                whileHover={{ scale: 1.03, opacity: 1, y: -4 }}
-                transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                className="flex-shrink-0 relative group cursor-pointer w-[85vw] md:w-[70vw] min-w-[300px] hover:scale-[1.03] hover:-translate-y-1 transition-all duration-700 ease-[0.19,1,0.22,1]"
+                onClick={() => handleProjectClick(project.slug)}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
               >
                 <div className={`relative h-[600px] overflow-hidden cinemagraph-${project.motionType}`}>
                   {/* Static image with cinemagraph motion overlay */}
@@ -179,46 +132,41 @@ export default function CinemagraphFrames() {
                   
                   {/* Minimal text overlay - bottom left */}
                   <div className="absolute bottom-8 left-8 z-10">
-                    <motion.h3 
-                      className="text-white mb-2"
+                    <h3 
+                      className={`text-white mb-2 transition-opacity duration-600 ease-[0.19,1,0.22,1] ${
+                        hoveredProject === project.id ? 'opacity-70' : 'opacity-100'
+                      }`}
                       style={{
                         fontFamily: 'GT Sectra Fine, serif',
                         fontSize: '32px',
                         lineHeight: '1.3',
                         fontWeight: 400
                       }}
-                      initial={{ opacity: 1 }}
-                      animate={{ 
-                        opacity: hoveredProject === project.id ? 0.7 : 1 
-                      }}
-                      transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
                     >
                       {project.name}
-                    </motion.h3>
+                    </h3>
                     
                     {/* Additional detail text that appears on hover */}
-                    <motion.p 
-                      className="text-white/90"
+                    <p 
+                      className={`text-white/90 transition-all duration-800 ease-[0.19,1,0.22,1] ${
+                        hoveredProject === project.id 
+                          ? 'opacity-100 translate-y-0' 
+                          : 'opacity-0 translate-y-5'
+                      }`}
                       style={{
                         fontFamily: 'Neue Haas Grotesk, system-ui, sans-serif',
                         fontSize: '16px',
                         lineHeight: '1.5',
                         fontWeight: 300
                       }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ 
-                        opacity: hoveredProject === project.id ? 1 : 0,
-                        y: hoveredProject === project.id ? 0 : 20
-                      }}
-                      transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
                     >
                       {project.description}
-                    </motion.p>
+                    </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
         
         {/* Scroll indicator */}
