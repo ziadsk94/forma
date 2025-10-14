@@ -154,11 +154,7 @@ export default function CinemagraphFrames() {
             {projects.map((project) => (
               <motion.div
                 key={project.id}
-                className="flex-shrink-0 relative group cursor-pointer"
-                style={{ 
-                  width: window.innerWidth < 768 ? '85vw' : '70vw',
-                  minWidth: '300px'
-                }}
+                className="flex-shrink-0 relative group cursor-pointer w-[85vw] md:w-[70vw] min-w-[300px]"
                 onClick={() => !isDragging && handleProjectClick(project.slug)}
                 onHoverStart={() => setHoveredProject(project.id)}
                 onHoverEnd={() => setHoveredProject(null)}
