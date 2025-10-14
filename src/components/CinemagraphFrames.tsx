@@ -67,6 +67,8 @@ const projects: CinemagraphProject[] = [
 export default function CinemagraphFrames() {
   const [isDragging, setIsDragging] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 300, damping: 30 });
@@ -81,8 +83,33 @@ export default function CinemagraphFrames() {
     }
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe || isRightSwipe) {
+      setIsDragging(true);
+      // Let the drag animation handle the movement
+      setTimeout(() => setIsDragging(false), 300);
+    }
+  };
+
   const handleProjectClick = (slug: string) => {
-    window.location.href = slug;
+    if (!isDragging) {
+      window.location.href = slug;
+    }
   };
 
   return (
@@ -102,14 +129,24 @@ export default function CinemagraphFrames() {
         
         <div 
           ref={containerRef}
-          className="flex gap-8 overflow-x-auto scrollbar-hide pb-8"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-8 overflow-x-auto scrollbar-hide pb-8 touch-pan-x"
+          style={{ 
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+            touchAction: 'pan-x'
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           <motion.div
             className="flex gap-8"
             style={{ x: springX }}
             drag="x"
             dragConstraints={{ left: -2000, right: 0 }}
+            dragElastic={0.1}
+            dragMomentum={false}
             onDrag={handleDrag}
             onDragStart={() => setIsDragging(true)}
             onDragEnd={() => setIsDragging(false)}
@@ -118,7 +155,10 @@ export default function CinemagraphFrames() {
               <motion.div
                 key={project.id}
                 className="flex-shrink-0 relative group cursor-pointer"
-                style={{ width: '70vw' }}
+                style={{ 
+                  width: window.innerWidth < 768 ? '85vw' : '70vw',
+                  minWidth: '300px'
+                }}
                 onClick={() => !isDragging && handleProjectClick(project.slug)}
                 onHoverStart={() => setHoveredProject(project.id)}
                 onHoverEnd={() => setHoveredProject(null)}
@@ -132,7 +172,8 @@ export default function CinemagraphFrames() {
                     alt={project.name}
                     fill
                     className="object-cover"
-                    sizes="70vw"
+                    sizes="(max-width: 768px) 85vw, 70vw"
+                    priority={false}
                   />
                   
                   {/* Subtle overlay that fades on hover */}
