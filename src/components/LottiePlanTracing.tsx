@@ -20,6 +20,7 @@ export default function LottiePlanTracing({
   className = "",
   triggerElement = ".plan-trigger"
 }: LottiePlanTracingProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lottieRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
