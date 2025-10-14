@@ -42,6 +42,20 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
+  // Disable scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <header 
       className={`sticky top-0 left-0 right-0 z-[9999] bg-[#F8F6F3] border-b border-[#E4DFDA] nav-sticky ${isScrolled ? 'scrolled' : ''}`} 
