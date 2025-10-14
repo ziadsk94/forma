@@ -61,13 +61,13 @@ export default function CinematicTransition({
       case 'up':
         tl.fromTo(element,
           { opacity: 0, y: 150, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, duration, ease: [0.19, 1, 0.22, 1] }
+          { opacity: 1, y: 0, scale: 1, duration, ease: "power3.out" }
         );
         break;
       case 'down':
         tl.fromTo(element,
           { opacity: 0, y: -150, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, duration, ease: [0.19, 1, 0.22, 1] }
+          { opacity: 1, y: 0, scale: 1, duration, ease: "power3.out" }
         );
         break;
     }
