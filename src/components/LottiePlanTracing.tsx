@@ -20,7 +20,7 @@ export default function LottiePlanTracing({
   className = "",
   triggerElement = ".plan-trigger"
 }: LottiePlanTracingProps) {
-  const lottieRef = useRef<HTMLDivElement>(null);
+  const lottieRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
