@@ -351,9 +351,7 @@ export default function ContactPage() {
                         fontWeight: 300
                       }}
                     >
-                      123 Design Street<br />
-                      Creative District<br />
-                      New York, NY 10001
+                      Studio Location
                     </p>
                   </div>
                   
@@ -378,7 +376,7 @@ export default function ContactPage() {
                         fontWeight: 300
                       }}
                     >
-                      +1 (555) 123-4567
+                      Phone Number
                     </p>
                   </div>
                   
@@ -472,7 +470,7 @@ export default function ContactPage() {
                           fontWeight: 400
                         }}
                       >
-                        123 Design Street
+                        Address
                       </div>
                     </div>
                   </div>
