@@ -194,6 +194,10 @@ const caseStudies: Record<string, CaseStudyData> = {
   }
 };
 
+export async function generateStaticParams() {
+  return Object.keys(caseStudies).map((slug) => ({ slug }));
+}
+
 export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const caseStudyData = caseStudies[resolvedParams.slug] || caseStudies['aera-studio'];
