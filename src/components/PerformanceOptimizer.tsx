@@ -60,7 +60,7 @@ export default function PerformanceOptimizer() {
       // Track First Input Delay
       new PerformanceObserver((entryList) => {
         for (const entry of entryList.getEntries()) {
-          console.log('FID:', entry.processingStart - entry.startTime);
+          console.log('FID:', (entry as any).processingStart - entry.startTime);
         }
       }).observe({ entryTypes: ['first-input'] });
 
