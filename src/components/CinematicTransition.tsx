@@ -91,7 +91,7 @@ export function PageTransition({ children, isVisible }: { children: React.ReactN
           exit={{ opacity: 0, scale: 1.05, y: -50 }}
           transition={{ 
             duration: 0.8, 
-            ease: "power3.out" // Architectural easing curve for cinematic feel
+            ease: [0.19, 1, 0.22, 1] // Architectural easing curve for cinematic feel
           }}
           className="w-full"
         >
