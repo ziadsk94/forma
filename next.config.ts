@@ -6,12 +6,18 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@next/font']
   },
   images: {
-    domains: ['images.unsplash.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
   },
   // Cloudflare Pages optimization
-  output: 'standalone',
+  output: 'export',
   trailingSlash: false,
+  distDir: 'out',
 };
 
 export default nextConfig;
