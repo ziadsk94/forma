@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@next/font']
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
