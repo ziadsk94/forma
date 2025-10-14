@@ -35,6 +35,10 @@ export default function Header() {
   ];
 
   const toggleMobileMenu = () => {
+    if (!isMobileMenuOpen) {
+      // Scroll to top when opening menu
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
@@ -172,7 +176,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-[9998] bg-[#F8F6F3] pt-20">
+        <div className="md:hidden fixed inset-0 z-[9998] bg-[#F8F6F3] h-screen w-screen">
           {/* Close Button */}
           <div className="absolute top-8 right-8">
             <button
@@ -187,23 +191,26 @@ export default function Header() {
             </button>
           </div>
 
-          <nav className="flex flex-col items-center space-y-8 py-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={closeMobileMenu}
-                className="text-[#1A1A1A] hover:text-[#B88A6F] transition-all duration-600 text-xl"
-                style={{
-                  fontFamily: 'Neue Haas Grotesk, system-ui, sans-serif',
-                  letterSpacing: '0.05em',
-                  fontWeight: 400
-                }}
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
+          {/* Navigation centered in viewport */}
+          <div className="h-full flex items-center justify-center px-8">
+            <nav className="flex flex-col items-center space-y-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={closeMobileMenu}
+                  className="text-[#1A1A1A] hover:text-[#B88A6F] transition-all duration-600 text-xl"
+                  style={{
+                    fontFamily: 'Neue Haas Grotesk, system-ui, sans-serif',
+                    letterSpacing: '0.05em',
+                    fontWeight: 400
+                  }}
+                >
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+          </div>
         </div>
       )}
     </header>
