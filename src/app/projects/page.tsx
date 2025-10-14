@@ -112,7 +112,7 @@ export default function ProjectsPage() {
 
       {/* Projects Grid */}
       <main className="pb-32">
-        {projects.map((project, index) => (
+                {projects.map((project) => (
           <article key={project.id} className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
             {/* Image Side */}
             <div className={`relative h-[600px] lg:h-screen ${

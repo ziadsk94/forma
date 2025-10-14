@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -119,12 +119,6 @@ export default function ServicesPage() {
   const [hoveredService, setHoveredService] = useState<string | null>(null);
   
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
     <div className="min-h-screen bg-[#F8F6F3]">
@@ -299,7 +293,7 @@ export default function ServicesPage() {
                 fontWeight: 300
               }}
             >
-              Let's discuss your project and explore how we can bring your vision to life.
+                      Let&apos;s discuss your project and explore how we can bring your vision to life.
             </p>
             <motion.button
               whileHover={{ scale: 1.05, opacity: 1, y: -4 }}

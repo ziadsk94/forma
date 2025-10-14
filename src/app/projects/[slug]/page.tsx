@@ -200,14 +200,15 @@ const caseStudies: Record<string, CaseStudyData> = {
   }
 };
 
-export default function CaseStudyPage({ params }: { params: { slug: string } }) {
+export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const galleryRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
   
   // Get the case study data based on the slug
-  const caseStudyData = caseStudies[params.slug] || caseStudies['aera-studio'];
+  const resolvedParams = await params;
+  const caseStudyData = caseStudies[resolvedParams.slug] || caseStudies['aera-studio'];
 
   // Handle gallery scroll progress
   const handleGalleryScroll = () => {

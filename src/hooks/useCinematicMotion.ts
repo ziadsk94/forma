@@ -21,7 +21,7 @@ export const useCinematicMotion = () => {
     // Cinematic reveal animations
     const reveals = containerRef.current.querySelectorAll('.cinematic-reveal');
     
-    reveals.forEach((element, index) => {
+    reveals.forEach((element) => {
       gsap.fromTo(element, 
         {
           opacity: 0,
@@ -78,7 +78,7 @@ export const useAdaptiveMotion = () => {
   const contentEasing = "power3.out"; // Smooth for content
   const cinematicEasing = "power4.out"; // Dramatic for reveals
 
-  const animateUI = (element: HTMLElement, props: any) => {
+  const animateUI = (element: HTMLElement, props: object) => {
     return gsap.to(element, {
       ...props,
       duration: 0.6,
@@ -86,7 +86,7 @@ export const useAdaptiveMotion = () => {
     });
   };
 
-  const animateContent = (element: HTMLElement, props: any) => {
+  const animateContent = (element: HTMLElement, props: object) => {
     return gsap.to(element, {
       ...props,
       duration: 1.2,
@@ -94,7 +94,7 @@ export const useAdaptiveMotion = () => {
     });
   };
 
-  const animateCinematic = (element: HTMLElement, props: any) => {
+  const animateCinematic = (element: HTMLElement, props: object) => {
     return gsap.to(element, {
       ...props,
       duration: 2.0,

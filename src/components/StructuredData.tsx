@@ -3,7 +3,7 @@ import { generateOrganizationSchema, generateWebsiteSchema } from '@/lib/seo';
 
 interface StructuredDataProps {
   type: 'organization' | 'website' | 'project' | 'service';
-  data?: any;
+  data?: object;
 }
 
 export default function StructuredData({ type, data }: StructuredDataProps) {

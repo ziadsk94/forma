@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -89,7 +88,7 @@ export default function ContactPage() {
                 fontWeight: 300
               }}
             >
-              Let's discuss your vision. We're here to transform your space into something extraordinary.
+              Let&apos;s discuss your vision. We&apos;re here to transform your space into something extraordinary.
             </p>
           </motion.section>
 

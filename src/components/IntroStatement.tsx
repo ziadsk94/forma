@@ -2,11 +2,11 @@
 
 import CinematicTransition from './CinematicTransition';
 import { useMultiLayerScroll } from '../hooks/useMultiLayerScroll';
-import { useScrollJack } from '../hooks/useCinematicMotion';
+// import { useScrollJack } from '../hooks/useCinematicMotion';
 
 export default function IntroStatement() {
   const multiLayerRef = useMultiLayerScroll();
-  const { handleScrollJack } = useScrollJack(1500);
+  // const { handleScrollJack } = useScrollJack(1500);
 
   return (
     <section ref={multiLayerRef} className="py-32 bg-[#F8F6F3] light-reactive">

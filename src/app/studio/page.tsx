@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Header from '@/components/Header';
@@ -52,7 +52,7 @@ export default function StudioPage() {
               }}
             >
               We are a boutique interior design studio dedicated to creating spaces 
-              that embody the philosophy of "Design as Spatial Poetry."
+              that embody the philosophy of &quot;Design as Spatial Poetry.&quot;
             </p>
           </motion.div>
 

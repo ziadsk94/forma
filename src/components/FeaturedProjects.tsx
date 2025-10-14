@@ -64,13 +64,13 @@ export default function FeaturedProjects() {
   useEffect(() => {
     const handleScroll = () => {
       if (scrollContainerRef.current) {
-        const scrollLeft = scrollContainerRef.current.scrollLeft;
-        const containerWidth = scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth;
-        const scrollProgress = scrollLeft / containerWidth;
+        // const scrollLeft = scrollContainerRef.current.scrollLeft;
+        // const containerWidth = scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth;
+        // const scrollProgress = scrollLeft / containerWidth;
         
         // Update parallax effect for each project
         const projectElements = scrollContainerRef.current.querySelectorAll('.project-tile');
-        projectElements.forEach((element, index) => {
+        projectElements.forEach((element) => {
           const rect = element.getBoundingClientRect();
           const isVisible = rect.left < window.innerWidth && rect.right > 0;
           
@@ -114,7 +114,7 @@ export default function FeaturedProjects() {
             WebkitOverflowScrolling: 'touch'
           }}
         >
-          {projects.map((project, index) => (
+                {projects.map((project) => (
             <div
               key={project.id}
               className="project-tile flex-shrink-0 relative group cursor-pointer"

@@ -10,7 +10,7 @@ if (typeof window !== 'undefined') {
 }
 
 interface LottiePlanTracingProps {
-  animationData: any;
+  animationData: object;
   className?: string;
   triggerElement?: string;
 }
@@ -20,7 +20,7 @@ export default function LottiePlanTracing({
   className = "",
   triggerElement = ".plan-trigger"
 }: LottiePlanTracingProps) {
-  const lottieRef = useRef<any>(null);
+  const lottieRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export function InteriorPlanTracing({
   plans, 
   className = "" 
 }: { 
-  plans: Array<{ id: string; animationData: any; title: string }>;
+  plans: Array<{ id: string; animationData: object; title: string }>;
   className?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);

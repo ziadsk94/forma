@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 interface CinemagraphProject {
   id: string;
@@ -71,7 +71,7 @@ export default function CinemagraphFrames() {
   const x = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 300, damping: 30 });
 
-  const handleDrag = (event: any, info: any) => {
+  const handleDrag = (event: React.MouseEvent, info: { offset: { x: number } }) => {
     if (containerRef.current) {
       const containerWidth = containerRef.current.scrollWidth;
       const clientWidth = containerRef.current.clientWidth;

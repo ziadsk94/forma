@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -49,13 +49,6 @@ const service = {
 export default function CommercialServicePage() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
     <div className="min-h-screen bg-[#F8F6F3]">
@@ -353,7 +346,7 @@ export default function CommercialServicePage() {
                     fontWeight: 300
                   }}
                 >
-                  Ready to enhance your workspace? Let's discuss your needs.
+                  Ready to enhance your workspace? Let&apos;s discuss your needs.
                 </p>
               </div>
             </div>

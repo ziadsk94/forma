@@ -67,8 +67,8 @@ export default function PerformanceOptimizer() {
       // Track Cumulative Layout Shift
       new PerformanceObserver((entryList) => {
         for (const entry of entryList.getEntries()) {
-          if (!(entry as any).hadRecentInput) {
-            console.log('CLS:', (entry as any).value);
+          if (!(entry as PerformanceEntry & { hadRecentInput?: boolean }).hadRecentInput) {
+            console.log('CLS:', (entry as PerformanceEntry & { value?: number }).value);
           }
         }
       }).observe({ entryTypes: ['layout-shift'] });

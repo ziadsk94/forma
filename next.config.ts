@@ -12,8 +12,6 @@ const nextConfig: NextConfig = {
   // Cloudflare Pages optimization
   output: 'standalone',
   trailingSlash: false,
-  // Enable static exports for Cloudflare Pages
-  generateStaticParams: true,
 };
 
 export default nextConfig;
