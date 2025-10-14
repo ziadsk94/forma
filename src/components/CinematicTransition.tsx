@@ -42,7 +42,7 @@ export default function CinematicTransition({
             y: 0,
             rotationX: 0,
             duration,
-            ease: [0.19, 1, 0.22, 1]
+            ease: "power3.out"
           }
         );
         break;
@@ -54,7 +54,7 @@ export default function CinematicTransition({
             y: -100,
             rotationX: -15,
             duration,
-            ease: [0.19, 1, 0.22, 1]
+            ease: "power3.out"
           }
         );
         break;
@@ -91,7 +91,7 @@ export function PageTransition({ children, isVisible }: { children: React.ReactN
           exit={{ opacity: 0, scale: 1.05, y: -50 }}
           transition={{ 
             duration: 0.8, 
-            ease: [0.19, 1, 0.22, 1] // Architectural easing curve for cinematic feel
+            ease: "power3.out" // Architectural easing curve for cinematic feel
           }}
           className="w-full"
         >
