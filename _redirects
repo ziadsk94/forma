@@ -1,0 +1,9 @@
+# Cloudflare Pages redirects
+# Redirect www to non-www
+https://www.forma-design.com/* https://forma-design.com/:splat 301
+
+# Redirect old paths if any
+/old-path/* /new-path/:splat 301
+
+# Handle client-side routing for Next.js
+/* /index.html 200
