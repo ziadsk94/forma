@@ -71,7 +71,7 @@ export default function CinemagraphFrames() {
   const x = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 300, damping: 30 });
 
-  const handleDrag = (event: any, info: any) => {
+  const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number } }) => {
     if (containerRef.current) {
       const containerWidth = containerRef.current.scrollWidth;
       const clientWidth = containerRef.current.clientWidth;
